@@ -60,11 +60,10 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Clean up outdated platform folders
-        run: rm -rf ios
-
-      - name: Recreate platform configurations
-        run: flutter create --platforms=ios .
+      - name: Regenerate iOS platform files
+        run: |
+          rm -rf ios
+          flutter create --platforms=ios .
 
       - name: Install dependencies
         run: flutter pub get
@@ -92,14 +91,11 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Enable Windows Desktop Build
-        run: flutter config --enable-windows-desktop
-
-      - name: Clean up outdated platform folders
-        run: Remove-Item -Recurse -Force windows -ErrorAction SilentlyContinue
-
-      - name: Recreate platform configurations
-        run: flutter create --platforms=windows .
+      - name: Regenerate Windows platform files
+        run: |
+          flutter config --enable-windows-desktop
+          Remove-Item -Recurse -Force windows -ErrorAction SilentlyContinue
+          flutter create --platforms=windows .
 
       - name: Install dependencies
         run: flutter pub get
@@ -127,14 +123,11 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Enable macOS Desktop Build
-        run: flutter config --enable-macos-desktop
-
-      - name: Clean up outdated platform folders
-        run: rm -rf macos
-
-      - name: Recreate platform configurations
-        run: flutter create --platforms=macos .
+      - name: Regenerate macOS platform files
+        run: |
+          flutter config --enable-macos-desktop
+          rm -rf macos
+          flutter create --platforms=macos .
 
       - name: Install dependencies
         run: flutter pub get
@@ -167,14 +160,11 @@ jobs:
           channel: 'stable'
           cache: true
 
-      - name: Enable Linux Desktop Build
-        run: flutter config --enable-linux-desktop
-
-      - name: Clean up outdated platform folders
-        run: rm -rf linux
-
-      - name: Recreate platform configurations
-        run: flutter create --platforms=linux .
+      - name: Regenerate Linux platform files
+        run: |
+          flutter config --enable-linux-desktop
+          rm -rf linux
+          flutter create --platforms=linux .
 
       - name: Install dependencies
         run: flutter pub get
