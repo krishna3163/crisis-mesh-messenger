@@ -93,5 +93,18 @@ All services and logic flows are backed by unit tests under the `/test` director
 
 ---
 
+## 💬 Community & Idea Discussions
+
+We use [GitHub Discussions](https://github.com/krishna3163/crisis-mesh-messenger/discussions) to brainstorm features, collect feedback, suggest integration modules (e.g. voice/video calls, solar hardware integrations), and coordinate offline relief patterns.
+
+If you are a developer, rescue worker, or mesh network enthusiast:
+- 💡 **Suggest an Idea**: Share concepts for low-power battery routing optimizations or custom hardware transceivers.
+- ❓ **Q&A**: Ask implementation questions or get setup support.
+- 📣 **Announcements**: Find updates on compiled releases and field-test deployments.
+
+👉 **[Join the Discussion Board](https://github.com/krishna3163/crisis-mesh-messenger/discussions)**
+
+---
+
 ## 📄 License
 MIT License - Free for humanitarian and emergency relief coordination.
