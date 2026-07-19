@@ -28,6 +28,9 @@ jobs:
           channel: 'stable'
           cache: true
 
+      - name: Recreate missing platform configurations
+        run: flutter create --platforms=android,ios,macos,windows,linux .
+
       - name: Install dependencies
         run: flutter pub get
 
@@ -56,6 +59,9 @@ jobs:
           flutter-version: '3.24.0'
           channel: 'stable'
           cache: true
+
+      - name: Recreate missing platform configurations
+        run: flutter create --platforms=android,ios,macos,windows,linux .
 
       - name: Install dependencies
         run: flutter pub get
@@ -86,6 +92,9 @@ jobs:
       - name: Enable Windows Desktop Build
         run: flutter config --enable-windows-desktop
 
+      - name: Recreate missing platform configurations
+        run: flutter create --platforms=android,ios,macos,windows,linux .
+
       - name: Install dependencies
         run: flutter pub get
 
@@ -114,6 +123,9 @@ jobs:
 
       - name: Enable macOS Desktop Build
         run: flutter config --enable-macos-desktop
+
+      - name: Recreate missing platform configurations
+        run: flutter create --platforms=android,ios,macos,windows,linux .
 
       - name: Install dependencies
         run: flutter pub get
@@ -148,6 +160,9 @@ jobs:
 
       - name: Enable Linux Desktop Build
         run: flutter config --enable-linux-desktop
+
+      - name: Recreate missing platform configurations
+        run: flutter create --platforms=android,ios,macos,windows,linux .
 
       - name: Install dependencies
         run: flutter pub get
