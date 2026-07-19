@@ -29,7 +29,7 @@ jobs:
           cache: true
 
       - name: Recreate platform configurations
-        run: flutter create --platforms=android .
+        run: flutter create --platforms=android --project-name crisis_mesh .
 
       - name: Install dependencies
         run: flutter pub get
@@ -63,7 +63,7 @@ jobs:
       - name: Regenerate iOS platform files
         run: |
           rm -rf ios
-          flutter create --platforms=ios .
+          flutter create --platforms=ios --project-name crisis_mesh .
 
       - name: Install dependencies
         run: flutter pub get
@@ -95,7 +95,7 @@ jobs:
         run: |
           flutter config --enable-windows-desktop
           Remove-Item -Recurse -Force windows -ErrorAction SilentlyContinue
-          flutter create --platforms=windows .
+          flutter create --platforms=windows --project-name crisis_mesh .
 
       - name: Install dependencies
         run: flutter pub get
@@ -127,7 +127,7 @@ jobs:
         run: |
           flutter config --enable-macos-desktop
           rm -rf macos
-          flutter create --platforms=macos .
+          flutter create --platforms=macos --project-name crisis_mesh .
 
       - name: Install dependencies
         run: flutter pub get
@@ -164,7 +164,7 @@ jobs:
         run: |
           flutter config --enable-linux-desktop
           rm -rf linux
-          flutter create --platforms=linux .
+          flutter create --platforms=linux --project-name crisis_mesh .
 
       - name: Install dependencies
         run: flutter pub get
