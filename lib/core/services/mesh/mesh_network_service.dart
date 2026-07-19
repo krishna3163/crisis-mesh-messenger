@@ -209,7 +209,7 @@ class MeshNetworkService extends ChangeNotifier {
   void _acceptConnection(String id) {
     _nearby.acceptConnection(
       id,
-      (id, payload) async {
+      onPayLoadRecieved: (id, payload) async {
         if (payload.type == PayloadType.BYTES) {
           final str = String.fromCharCodes(payload.bytes!);
           _logger.d('Payload received from $id: $str');
