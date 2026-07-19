@@ -38,7 +38,7 @@ class CachedTileProvider extends TileProvider {
       client.connectionTimeout = const Duration(seconds: 5);
 
       final request = await client.getUrl(Uri.parse(url));
-      request.headers.setUserAgent('com.crisis.mesh');
+      request.headers.set(HttpHeaders.userAgentHeader, 'com.crisis.mesh');
 
       final response = await request.close();
       if (response.statusCode == 200) {

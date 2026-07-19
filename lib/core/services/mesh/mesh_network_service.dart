@@ -121,7 +121,7 @@ class MeshNetworkService extends ChangeNotifier {
           if (peer != null) {
             _updatePeer(peer.copyWith(status: PeerStatus.offline));
           }
-          onPeerDisconnected?.call(id);
+          onPeerDisconnected?.call(id ?? '');
         },
         serviceId: "com.crisis.mesh",
       );
@@ -209,7 +209,7 @@ class MeshNetworkService extends ChangeNotifier {
   void _acceptConnection(String id) {
     _nearby.acceptConnection(
       id,
-      onPayloadReceived: (id, payload) async {
+      (id, payload) async {
         if (payload.type == PayloadType.BYTES) {
           final str = String.fromCharCodes(payload.bytes!);
           _logger.d('Payload received from $id: $str');

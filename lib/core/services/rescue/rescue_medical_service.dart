@@ -85,14 +85,16 @@ class RescueMedicalService extends ChangeNotifier {
   }
 
   List<TriageCard> getTriageCards() {
-    return _triageBox?.values.toList()
-      ..sort((a, b) {
-        // Prioritize status RED, then YELLOW, then GREEN, then BLACK
-        final scoreA = _getStatusPriorityScore(a.status);
-        final scoreB = _getStatusPriorityScore(b.status);
-        if (scoreA != scoreB) return scoreB.compareTo(scoreA);
-        return b.timestamp.compareTo(a.timestamp);
-      }) ?? [];
+    final list = _triageBox?.values.toList();
+    if (list == null) return [];
+    list.sort((a, b) {
+      // Prioritize status RED, then YELLOW, then GREEN, then BLACK
+      final scoreA = _getStatusPriorityScore(a.status);
+      final scoreB = _getStatusPriorityScore(b.status);
+      if (scoreA != scoreB) return scoreB.compareTo(scoreA);
+      return b.timestamp.compareTo(a.timestamp);
+    });
+    return list;
   }
 
   int _getStatusPriorityScore(String status) {
@@ -125,8 +127,10 @@ class RescueMedicalService extends ChangeNotifier {
   }
 
   List<RescueTask> getRescueTasks() {
-    return _taskBox?.values.toList()
-      ..sort((a, b) => b.timestamp.compareTo(a.timestamp)) ?? [];
+    final list = _taskBox?.values.toList();
+    if (list == null) return [];
+    list.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+    return list;
   }
 
   // --- Supply Inventory Tracker ---
@@ -150,8 +154,10 @@ class RescueMedicalService extends ChangeNotifier {
   }
 
   List<LandingZone> getLandingZones() {
-    return _lzBox?.values.toList()
-      ..sort((a, b) => b.score.compareTo(a.score)) ?? [];
+    final list = _lzBox?.values.toList();
+    if (list == null) return [];
+    list.sort((a, b) => b.score.compareTo(a.score));
+    return list;
   }
 
   /// Score landing site (0 to 100) based on slope, dimensions, and surface suitability

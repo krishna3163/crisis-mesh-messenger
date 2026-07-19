@@ -101,8 +101,10 @@ class MeshRoutingService extends ChangeNotifier {
   }
 
   List<OfflineEmail> getEmails() {
-    return _emailBox?.values.toList()
-      ..sort((a, b) => b.timestamp.compareTo(a.timestamp)) ?? [];
+    final list = _emailBox?.values.toList();
+    if (list == null) return [];
+    list.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+    return list;
   }
 
   Future<void> handleReceivedEmail(OfflineEmail email) async {

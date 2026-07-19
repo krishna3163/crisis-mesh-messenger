@@ -101,8 +101,10 @@ class CommunityService extends ChangeNotifier {
   }
 
   List<MarketListing> getListings() {
-    return _marketBox?.values.toList()
-      ..sort((a, b) => b.timestamp.compareTo(a.timestamp)) ?? [];
+    final list = _marketBox?.values.toList();
+    if (list == null) return [];
+    list.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+    return list;
   }
 
   Future<void> handleReceivedMarketListing(MarketListing listing) async {

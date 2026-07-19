@@ -25,8 +25,8 @@ void main() {
     final decompressed = gatewayService.decompressSatellitePayload(hexPayload);
 
     // Compare values (floating delta matching)
-    expect((decompressed['lat'] as double - lat).abs() < 0.0001, true);
-    expect((decompressed['lon'] as double - lon).abs() < 0.0001, true);
+    expect(((decompressed['lat'] as double) - lat).abs() < 0.0001, true);
+    expect(((decompressed['lon'] as double) - lon).abs() < 0.0001, true);
     expect(decompressed['senderId'], sender);
     
     // Verify padding and matching

@@ -100,7 +100,7 @@ void main() {
       }
     };
     expect(typingPacket['type'], 'typing_status');
-    expect(typingPacket['payload']?['isTyping'], true);
+    expect((typingPacket['payload'] as Map<String, dynamic>)['isTyping'], true);
 
     final readReceiptPacket = {
       'type': 'read_receipt',
@@ -110,6 +110,6 @@ void main() {
       }
     };
     expect(readReceiptPacket['type'], 'read_receipt');
-    expect(readReceiptPacket['payload']?['messageId'], 'msg_987');
+    expect((readReceiptPacket['payload'] as Map<String, dynamic>)['messageId'], 'msg_987');
   });
 }

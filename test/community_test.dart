@@ -108,31 +108,26 @@ void main() {
     expect(communityService.getMyVote()?.nomineeId, candidate2);
 
     // 3. Receive incoming mesh votes from other peers
-    await communityService.handleReceivedVote(const LeaderVote(
+    await communityService.handleReceivedVote(LeaderVote(
       id: 'vote_peer1',
       nomineeId: candidate1,
       nomineeName: 'Bob',
       voterId: 'peer_node_1',
       voterName: 'Peer 1',
-      timestamp: null, // manual
+      timestamp: DateTime.now(),
     ));
 
-    await communityService.handleReceivedVote(const LeaderVote(
+    await communityService.handleReceivedVote(LeaderVote(
       id: 'vote_peer2',
       nomineeId: candidate1,
       nomineeName: 'Bob',
       voterId: 'peer_node_2',
       voterName: 'Peer 2',
-      timestamp: null, // manual
+      timestamp: DateTime.now(),
     ));
 
     tallies = communityService.getVoteTallies();
     expect(tallies[candidate1], 2);
     expect(tallies[candidate2], 1);
   });
-}
-
-// Stub timestamp helper
-extension on LeaderVote {
-  DateTime get timestamp => DateTime.now();
 }
