@@ -10,6 +10,7 @@ enum MessageStatus {
   delivered,  // Message delivered to recipient
   failed,     // Message failed to send
   relayed,    // Message is being relayed (not for us)
+  read,       // Message was read by recipient
 }
 
 /// A message in the mesh network
@@ -48,6 +49,18 @@ class Message extends Equatable {
   @HiveField(10)
   final bool isEncrypted;
 
+  @HiveField(11)
+  final String? groupId; // If part of a group chat
+
+  @HiveField(12)
+  final String? replyToId;
+
+  @HiveField(13)
+  final String? replyToContent;
+
+  @HiveField(14)
+  final String? replyToSenderName;
+
   const Message({
     required this.id,
     required this.senderId,
@@ -60,6 +73,10 @@ class Message extends Equatable {
     this.routePath = const [],
     this.encryptedContent,
     this.isEncrypted = false,
+    this.groupId,
+    this.replyToId,
+    this.replyToContent,
+    this.replyToSenderName,
   });
 
   /// Create a copy with updated fields
@@ -75,6 +92,10 @@ class Message extends Equatable {
     List<String>? routePath,
     String? encryptedContent,
     bool? isEncrypted,
+    String? groupId,
+    String? replyToId,
+    String? replyToContent,
+    String? replyToSenderName,
   }) {
     return Message(
       id: id ?? this.id,
@@ -88,6 +109,10 @@ class Message extends Equatable {
       routePath: routePath ?? this.routePath,
       encryptedContent: encryptedContent ?? this.encryptedContent,
       isEncrypted: isEncrypted ?? this.isEncrypted,
+      groupId: groupId ?? this.groupId,
+      replyToId: replyToId ?? this.replyToId,
+      replyToContent: replyToContent ?? this.replyToContent,
+      replyToSenderName: replyToSenderName ?? this.replyToSenderName,
     );
   }
 
@@ -113,6 +138,10 @@ class Message extends Equatable {
         'maxHops': maxHops,
         'routePath': routePath,
         'isEncrypted': isEncrypted,
+        'groupId': groupId,
+        'replyToId': replyToId,
+        'replyToContent': replyToContent,
+        'replyToSenderName': replyToSenderName,
       };
 
   /// Create from JSON received over network
@@ -128,6 +157,10 @@ class Message extends Equatable {
       routePath: (json['routePath'] as List?)?.cast<String>() ?? [],
       encryptedContent: json['isEncrypted'] == true ? json['content'] as String : null,
       isEncrypted: json['isEncrypted'] as bool? ?? false,
+      groupId: json['groupId'] as String?,
+      replyToId: json['replyToId'] as String?,
+      replyToContent: json['replyToContent'] as String?,
+      replyToSenderName: json['replyToSenderName'] as String?,
     );
   }
 
@@ -144,6 +177,10 @@ class Message extends Equatable {
         routePath,
         encryptedContent,
         isEncrypted,
+        groupId,
+        replyToId,
+        replyToContent,
+        replyToSenderName,
       ];
 
   @override

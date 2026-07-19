@@ -44,6 +44,15 @@ class Peer extends Equatable {
   @HiveField(9)
   final int relayCount; // Messages relayed through this peer
 
+  @HiveField(10)
+  final int batteryLevel; // Battery level (0-100)
+
+  @HiveField(11)
+  final bool isInternetGateway; // Tracks if node has internet backhaul
+
+  @HiveField(12)
+  final String peerType; // 'STANDARD', 'DRONE_RELAY', 'VEHICLE_RELAY'
+
   const Peer({
     required this.id,
     required this.name,
@@ -55,6 +64,9 @@ class Peer extends Equatable {
     this.isTrusted = false,
     this.messageCount = 0,
     this.relayCount = 0,
+    this.batteryLevel = 100,
+    this.isInternetGateway = false,
+    this.peerType = 'STANDARD',
   });
 
   /// Create a copy with updated fields
@@ -69,6 +81,9 @@ class Peer extends Equatable {
     bool? isTrusted,
     int? messageCount,
     int? relayCount,
+    int? batteryLevel,
+    bool? isInternetGateway,
+    String? peerType,
   }) {
     return Peer(
       id: id ?? this.id,
@@ -81,6 +96,9 @@ class Peer extends Equatable {
       isTrusted: isTrusted ?? this.isTrusted,
       messageCount: messageCount ?? this.messageCount,
       relayCount: relayCount ?? this.relayCount,
+      batteryLevel: batteryLevel ?? this.batteryLevel,
+      isInternetGateway: isInternetGateway ?? this.isInternetGateway,
+      peerType: peerType ?? this.peerType,
     );
   }
 
@@ -103,6 +121,9 @@ class Peer extends Equatable {
         'name': name,
         'deviceType': deviceType,
         'publicKey': publicKey,
+        'batteryLevel': batteryLevel,
+        'isInternetGateway': isInternetGateway,
+        'peerType': peerType,
       };
 
   /// Create from JSON
@@ -112,6 +133,9 @@ class Peer extends Equatable {
       name: json['name'] as String,
       deviceType: json['deviceType'] as String? ?? 'Unknown',
       publicKey: json['publicKey'] as String?,
+      batteryLevel: json['batteryLevel'] as int? ?? 100,
+      isInternetGateway: json['isInternetGateway'] as bool? ?? false,
+      peerType: json['peerType'] as String? ?? 'STANDARD',
       lastSeen: DateTime.now(),
       status: PeerStatus.nearby,
     );
@@ -129,8 +153,11 @@ class Peer extends Equatable {
         isTrusted,
         messageCount,
         relayCount,
+        batteryLevel,
+        isInternetGateway,
+        peerType,
       ];
 
   @override
-  String toString() => 'Peer(id: $id, name: $name, status: $status)';
+  String toString() => 'Peer(id: $id, name: $name, status: $status, type: $peerType)';
 }

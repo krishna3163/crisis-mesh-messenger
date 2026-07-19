@@ -27,13 +27,16 @@ class PeerAdapter extends TypeAdapter<Peer> {
       isTrusted: fields[7] as bool,
       messageCount: fields[8] as int,
       relayCount: fields[9] as int,
+      batteryLevel: fields[10] as int? ?? 100,
+      isInternetGateway: fields[11] as bool? ?? false,
+      peerType: fields[12] as String? ?? 'STANDARD',
     );
   }
 
   @override
   void write(BinaryWriter writer, Peer obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(13)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -53,7 +56,13 @@ class PeerAdapter extends TypeAdapter<Peer> {
       ..writeByte(8)
       ..write(obj.messageCount)
       ..writeByte(9)
-      ..write(obj.relayCount);
+      ..write(obj.relayCount)
+      ..writeByte(10)
+      ..write(obj.batteryLevel)
+      ..writeByte(11)
+      ..write(obj.isInternetGateway)
+      ..writeByte(12)
+      ..write(obj.peerType);
   }
 
   @override

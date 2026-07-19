@@ -28,13 +28,17 @@ class MessageAdapter extends TypeAdapter<Message> {
       routePath: (fields[8] as List).cast<String>(),
       encryptedContent: fields[9] as String?,
       isEncrypted: fields[10] as bool,
+      groupId: fields[11] as String?,
+      replyToId: fields[12] as String?,
+      replyToContent: fields[13] as String?,
+      replyToSenderName: fields[14] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Message obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(14)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -56,7 +60,15 @@ class MessageAdapter extends TypeAdapter<Message> {
       ..writeByte(9)
       ..write(obj.encryptedContent)
       ..writeByte(10)
-      ..write(obj.isEncrypted);
+      ..write(obj.isEncrypted)
+      ..writeByte(11)
+      ..write(obj.groupId)
+      ..writeByte(12)
+      ..write(obj.replyToId)
+      ..writeByte(13)
+      ..write(obj.replyToContent)
+      ..writeByte(14)
+      ..write(obj.replyToSenderName);
   }
 
   @override
@@ -87,6 +99,8 @@ class MessageStatusAdapter extends TypeAdapter<MessageStatus> {
         return MessageStatus.failed;
       case 4:
         return MessageStatus.relayed;
+      case 5:
+        return MessageStatus.read;
       default:
         return MessageStatus.sending;
     }
@@ -109,6 +123,9 @@ class MessageStatusAdapter extends TypeAdapter<MessageStatus> {
         break;
       case MessageStatus.relayed:
         writer.writeByte(4);
+        break;
+      case MessageStatus.read:
+        writer.writeByte(5);
         break;
     }
   }
